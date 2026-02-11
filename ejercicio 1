@@ -1,0 +1,25 @@
+def acepta(afd, cadena):
+    estado = afd["inicio"]
+    for simbolo in cadena:
+        if simbolo not in afd["transiciones"][estado]:
+            return False
+        estado = afd["transiciones"][estado][simbolo]
+    return estado in afd["finales"]
+
+
+afd = {
+    "inicio": "q0",
+    "finales": ["q2"],
+    "transiciones": {
+        "q0": {"0": "q1", "1": "q3"},
+        "q1": {"1": "q2"},
+        "q3": {"0": "q2"},
+        "q2": {"1": "q2"}
+    }
+}
+
+cadenas = ["01", "1011", "0111", "00", "111", "010"]
+
+for c in cadenas:
+    print(c, acepta(afd, c))
+    
